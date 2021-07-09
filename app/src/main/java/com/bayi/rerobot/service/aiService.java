@@ -49,11 +49,13 @@ import com.bayi.rerobot.util.HttpUtil;
 
 import com.bayi.rerobot.util.LogUtil;
 import com.bayi.rerobot.util.ScreenTimer;
+import com.bayi.rerobot.util.SerialOperator;
 import com.bayi.rerobot.util.SocketClient;
 import com.bayi.rerobot.util.SocketHead;
 import com.bayi.rerobot.util.SocketType;
 import com.bayi.rerobot.util.SpHelperUtil;
 import com.bayi.rerobot.util.TaskType;
+import com.bayi.rerobot.util.ToastUtil;
 import com.eaibot.konyun.eaibotdemo.JniEAIBot;
 import com.genius.audio.track.MyPcmPlayer;
 
@@ -73,6 +75,7 @@ import com.tobot.slam.data.LocationBean;
 
 import com.voice.caePk.CaeOperator;
 import com.voice.caePk.OnCaeOperatorlistener;
+import com.yist.eailibrary.constants.HandlerCode;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -235,6 +238,9 @@ public class aiService extends Service  {
             uprobortstate();
         }
     };
+
+    private Runnable aiuiWork = null;
+
     int count;
     public Handler handler = new Handler() {
         @Override
@@ -367,9 +373,20 @@ public class aiService extends Service  {
         serialHelper = new SerialHelper("dev/ttyS4", 115200) {
             @Override
             protected void onDataReceived(final ComBean comBean) {
-            String s=new String(comBean.bRec);
+                SerialOperator.SerialData data = SerialOperator.INSTANCE.handlerData(comBean.bRec, comBean.bRec.length);
+                if (data != null && data.getParam1().getKeyword().equals("xiao3 fei1 xiao3 fei1")) {
+                    ToastUtil.showToast(aiService.this, "监听到串口唤醒 angle = "+data.getParam1().getAngle());
+                    serialWeak(Integer.parseInt(data.getParam1().getAngle()));
+                }
             }
         };
+        try {
+            serialHelper.open();
+            ToastUtil.showToast(this, "串口打开成功");
+        } catch (IOException e) {
+            e.printStackTrace();
+            ToastUtil.showToast(this, "串口打开失败");
+        }
     }
 
     @SuppressLint("WrongConstant")
@@ -607,6 +624,11 @@ public class aiService extends Service  {
                     } else if (AIUIConstant.STATE_WORKING == mAIUIState) {
                         // AIUI工作中，可进行交互
                         showTip("STATE_WORKING");
+                        if (aiuiWork != null) {
+                            ToastUtil.showToast(aiService.this, "AIUI开始工作");
+                            aiuiWork.run();
+                            aiuiWork = null;
+                        }
                     }
                 }
                 break;
@@ -686,6 +708,49 @@ public class aiService extends Service  {
 
         }
     };
+
+    private void serialWeak(int angle){
+        Log.e("mAIUIAgent", mAIUIAgent == null ? "no" : "yes");
+        isAsring = true;
+        if (myPcmPlayer != null) {
+            myPcmPlayer.stopPlay();
+            AIUIMessage cancelTts = new AIUIMessage(AIUIConstant.CMD_TTS, 2, 0, "", null);
+            mAIUIAgent.sendMessage(cancelTts);
+
+        }
+        //阵列唤醒事件回调，唤醒后需要发命令CMD_WAKEUP，通知AIUI 进入到Working 状态；
+        AIUIMessage resetWakeupMsg = new AIUIMessage(
+                AIUIConstant.CMD_WAKEUP, 0, 0, "", null);
+        mAIUIAgent.sendMessage(resetWakeupMsg);
+
+        aiuiWork = () -> {
+            speak1("我在");
+
+            //开始录音
+            AIUIMessage msg = new AIUIMessage(AIUIConstant.CMD_START_RECORD, 0, 0, "data_type=audio,sample_rate=16000", null);
+            mAIUIAgent.sendMessage(msg);
+        };
+
+        Log.e(TAG, "角度：" + angle + "   波束：" );
+        //60是偏差
+        angle = (angle) % 360;
+        Log.e(TAG, "ANGLE" + angle);
+        // CAE.CAESetRealBeam(2);
+          /*  if(App.taskType==TaskType.Task||App.taskType==TaskType.Navigation){
+                App.jniEAIBotUtil.navigateTargetControlB(2, App.handler, HandlerCode.NAVIGATE_TARGET_CONTROL_B);
+                wakeupHandler.removeCallbacks(wakeupRunnable);
+                wakeupHandler.postDelayed(wakeupRunnable,90000);
+            }*/
+        if (App.targetName.equals(spHelperUtil.getSharedPreference(Contants.CHARGE, "chongdian"))) {//充电不旋转
+            if (angle <= 180 && angle > 20) {
+                // CAE.CAESetRealBeam(beam);
+                App.jniEAIBotUtil.rotateBot(-angle, 0.6f, App.handler, HandlerCode.ROTATE_BOT);
+            } else if (angle < 340 && angle > 180) {
+                App.jniEAIBotUtil.rotateBot(360 - angle, 0.6f, App.handler, HandlerCode.ROTATE_BOT);
+                // CAE.CAESetRealBeam(beam);
+            }
+        }
+    }
 
     private void speak(String str) {
         try {
@@ -1072,6 +1137,9 @@ public class aiService extends Service  {
             myLocationBean.clear();
             myLocationBean=null;
         }
+
+        serialHelper.close();
+
 
     }
 
