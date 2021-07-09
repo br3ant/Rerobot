@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+<include layout="@layout/title"/>
+  <View android:id="@+id/view_background"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      android:layout_marginBottom="240dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_marginLeft="42dp"
+      android:layout_marginRight="42dp"
+      app:layout_constraintTop_toTopOf="parent"
+      android:layout_marginTop="105dp"
+      android:background="#272A3D"/>
+<TextView app:layout_constraintLeft_toLeftOf="@+id/view_background"
+    app:layout_constraintTop_toTopOf="@+id/view_background"
+    android:layout_marginLeft="60dp"
+    android:layout_marginTop="54dp"
+    android:id="@+id/txt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="#fff"
+    android:textSize="36sp"
+    android:text="已建区域(长按删除)"/>
+  <RelativeLayout android:id="@+id/re"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_marginLeft="50dp"
+      android:layout_marginRight="50dp"
+      app:layout_constraintLeft_toLeftOf="@+id/view_background"
+      app:layout_constraintRight_toRightOf="@+id/view_background"
+      app:layout_constraintTop_toBottomOf="@+id/txt"
+      app:layout_constrainedHeight="true"
+      app:layout_constraintBottom_toTopOf="@+id/add"
+      android:layout_marginTop="18dp">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/area_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+  </RelativeLayout>
+  <Button android:id="@+id/add"
+      android:layout_width="0dp"
+      app:layout_constraintLeft_toLeftOf="@+id/view_background"
+      app:layout_constraintRight_toRightOf="@+id/view_background"
+      app:layout_constraintBottom_toBottomOf="@+id/view_background"
+      android:layout_marginBottom="58dp"
+      android:layout_marginLeft="58dp"
+      android:layout_marginRight="58dp"
+      android:text="添加区域"
+      android:textColor="#fff"
+      android:textSize="46sp"
+      android:layout_height="128dp"
+      android:background="@drawable/xiaodu_selected"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

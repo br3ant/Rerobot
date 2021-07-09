@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.bayi.rerobot">
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.intent.action.BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:largeHeap="true">
+        <activity android:name=".ui.NewMain"></activity>
+        <activity android:name=".ui.logActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.bayi.rerobot.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity android:name=".ui.SetActivity" />
+        <activity android:name=".ui.ScreenActivity" />
+
+        <service
+            android:name=".service.aiService"
+            android:enabled="true"
+            android:exported="true"
+            android:priority="1000" />
+
+        <activity
+            android:name=".faceonline.OnlineFaceDemo"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".IdentifyGroup.FaceIdentifyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".IdentifyGroup.GroupManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".IdentifyGroup.ResultIdentifyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".IdentifyGroup.VocalIdentifyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.FirstActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".util.MyReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.clock.LoongggAlarmReceiver">
+            <intent-filter android:priority="1000">
+                <action android:name="com.bayi.alarm.clock" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="1080" />
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="1920" />
+    </application>
+
+</manifest>

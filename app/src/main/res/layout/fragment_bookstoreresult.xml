@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+<include layout="@layout/title"/>
+  <View android:id="@+id/view_background"
+      android:layout_width="0dp"
+      android:layout_height="1000dp"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      android:layout_marginLeft="42dp"
+      android:layout_marginRight="42dp"
+      app:layout_constraintTop_toTopOf="parent"
+      android:layout_marginTop="105dp"
+      android:background="#ff1c1f33"/>
+  <ImageView android:id="@+id/img_book"
+      android:layout_width="0dp"
+      android:layout_height="230dp"
+      app:layout_constraintLeft_toLeftOf="@+id/view_background"
+      app:layout_constraintRight_toRightOf="@+id/view_background"
+      app:layout_constraintTop_toTopOf="@+id/view_background"
+      android:src="@mipmap/bookstore"
+      android:scaleType="fitXY"/>
+  <TextView
+      app:layout_constraintLeft_toLeftOf="@+id/view_background"
+      app:layout_constraintTop_toTopOf="@+id/view_background"
+      android:layout_marginLeft="57dp"
+      android:layout_marginTop="60dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="图书查询"
+      android:textColor="#ffffffff"
+      android:textSize="52sp"
+      />
+  <TextView
+      app:layout_constraintLeft_toLeftOf="@+id/view_background"
+      app:layout_constraintTop_toTopOf="@+id/view_background"
+      android:layout_marginLeft="57dp"
+      android:layout_marginTop="145dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="多样化查询，“益”查到底“"
+      android:textColor="#ffffffff"
+      android:textSize="40sp"
+      />
+
+ <androidx.recyclerview.widget.RecyclerView
+     android:layout_width="0dp"
+     android:layout_height="0dp"
+     android:id="@+id/recycle"
+     app:layout_constraintLeft_toLeftOf="@id/view_background"
+     app:layout_constraintRight_toRightOf="@id/view_background"
+     app:layout_constraintBottom_toBottomOf="@id/view_background"
+     app:layout_constraintTop_toBottomOf="@+id/img_book"
+     android:layout_marginTop="34dp"/>
+
+
+  
+</androidx.constraintlayout.widget.ConstraintLayout>

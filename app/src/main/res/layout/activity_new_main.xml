@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.NewMain"
+    android:background="#1c1f33">
+<LinearLayout android:id="@+id/lin"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_width="match_parent"
+    android:layout_height="58dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+    <ImageView  android:id="@+id/img_net"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:src="@mipmap/net1"
+        android:layout_marginLeft="42dp"/>
+    <ImageView  android:id="@+id/img_water"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:src="@mipmap/water2"
+        android:layout_marginLeft="20dp"
+        />
+    <ImageView  android:id="@+id/img_gps"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:src="@mipmap/gps0"
+        android:layout_marginLeft="20dp"
+
+        />
+    <ImageView  android:id="@+id/img_cewen"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:src="@mipmap/wd1"
+        android:layout_marginLeft="20dp"
+        />
+    <ImageView  android:id="@+id/img_xiaodu"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:src="@mipmap/xiaodu1"
+        android:layout_marginLeft="20dp"
+        />
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"/>
+    <TextView android:id="@+id/mapname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="#ffffffff"
+        android:textSize="18sp"
+        android:layout_marginRight="30dp"
+        />
+    <ImageView  android:id="@+id/lighting"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/lighting"
+        android:layout_marginTop="2dp"
+        android:visibility="gone"
+        />
+    <com.bayi.rerobot.utilView.BatteryState
+        android:id="@+id/BatteryState"
+        android:layout_width="42dp"
+        android:layout_height="25dp"
+        android:layout_marginRight="8dp"
+        />
+
+    <TextView android:id="@+id/battertxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="#ffffffff"
+        android:textSize="18sp"
+        android:layout_marginRight="30dp"
+        />
+</LinearLayout>
+    <FrameLayout
+        android:id="@+id/main_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lin"
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <include  android:id="@+id/chat_layout"
+        layout="@layout/chat_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="850dp"
+        android:layout_width="0dp"
+        />
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gif_wave"
+        android:layout_width="0dp"
+        android:layout_height="12dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/ce_wave"
+        android:visibility="gone"
+        />
+    <com.bayi.rerobot.utilView.PassWordLayout
+        android:id="@+id/pa3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="44px"
+        app:box_draw_type="line"
+        app:draw_txt_size="30dp"
+        app:interval_width="10dp"
+        app:pass_inputed_type="circle"
+        app:pass_leng="four"
+       app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

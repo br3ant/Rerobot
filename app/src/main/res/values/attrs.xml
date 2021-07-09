@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MyBatteryView">
+        <attr name="batteryTextSize" format="dimension" />
+        <attr name="batteryColor" format="color" />
+        <attr name="powerColor" format="color" />
+        <attr name="powerColor1" format="color" />
+        <attr name="lowPowerColor" format="color" />
+        <attr name="showText" format="boolean" />
+        <attr name="mCapWidth" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="SessionReplyListView">
+        <attr name="replierAndTargetTextColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="ExpandTextView">
+        <attr name="defaultShownLines" format="integer" />
+        <attr name="foldableTriggerTextColor" format="color" />
+        <attr name="foldStateTriggerText" format="string" />
+        <attr name="unfoldStateTriggerText" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ChatView">
+        <attr name="msgColor" format="color" />
+        <!--<attr name="send"-->
+        <attr name="textSize" format="dimension" />
+        <attr name="mode">
+            <enum name="comment" value="0" />
+            <enum name="chat" value="1" />
+        </attr>
+        <attr name="sendBtnBg" format="reference" />
+        <attr name="sendBtnTextColor" format="color" />
+    </declare-styleable>
+
+
+    <declare-styleable name="RatingView">
+        <attr name="starsNum" format="integer" />
+        <attr name="starWidth" format="dimension" />
+        <attr name="starHeight" format="dimension" />
+        <attr name="starDistance" format="dimension" />
+        <attr name="starBackground" format="reference" />
+        <attr name="starDrawBackground" format="reference" />
+        <attr name="isIndicator" format="boolean" />
+        <!--默认星星数(可为小数)，取值范围[0-starNum]-->
+        <attr name="defaultStarNum" format="float" />
+        <!--每颗星星代表的分值-->
+        <attr name="valuePerStar" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomRadioGroup">
+        <attr name="orientation">
+            <enum name="Horizontal" value="0" />
+            <enum name="Vertical" value="1" />
+        </attr>
+        <attr name="checkedButton" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleCountDownView">
+        <!--控件中间图片资源-->
+        <attr name="circleImgSrc" format="reference" />
+        <attr name="circleBorderColor" format="color" />
+        <attr name="circleBorderWidth" format="dimension" />
+        <attr name="valueTextSize" format="dimension" />
+        <attr name="valueTextColor" format="color" />
+        <attr name="padding" format="dimension" />
+        <attr name="showProgress" format="boolean" />
+        <attr name="processColorStart" format="color" />
+        <attr name="processColorEnd" format="color" />
+        <attr name="processBlurMaskRadius" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="MultiGroupHistogramView">
+        <attr name="coordinateAxisWidth" format="dimension" />
+        <attr name="coordinateAxisColor" format="color" />
+        <attr name="groupNameTextColor" format="color" />
+        <attr name="groupNameTextSize" format="dimension" />
+        <attr name="groupInterval" format="dimension" />
+        <attr name="histogramInterval" format="dimension" />
+        <attr name="histogramValueTextColor" format="color" />
+        <attr name="histogramValueTextSize" format="dimension" />
+        <attr name="histogramHistogramWidth" format="dimension" />
+        <attr name="histogramPaddingStart" format="dimension" />
+        <attr name="histogramPaddingEnd" format="dimension" />
+        <attr name="chartPaddingTop" format="dimension" />
+        <attr name="distanceFormGroupNameToAxis" format="dimension" />
+        <attr name="distanceFromValueToHistogram" format="dimension" />
+        <!--图表数值小数点位数-->
+        <attr name="histogramValueDecimalCount">
+            <enum name="ZERO" value="0" />
+            <enum name="ONE" value="1" />
+            <enum name="TWO" value="2" />
+        </attr>
+    </declare-styleable>
+    <!--自定义EditText-->
+    <declare-styleable name="CustomEditText"> <!-- name : 给自定义属性设置标示 ,一般都是给设置设置，写谁的名称-->
+        <attr name="icon_normal" format="reference" />
+        <attr name="icon_selected" format="reference" />
+        <attr name="eye_icon" format="reference" />
+        <attr name="hintText" format="string" />
+        <attr name="contents" format="string" />
+        <!--是否为密码形式-->
+        <attr name="isPassword" format="boolean" />
+        <!--是否可以下拉-->
+        <attr name="canDrop" format="boolean" />
+        <!--是否显示隐藏密码-->
+        <attr name="isEyeShow" format="boolean" />
+        <!--是否支持中文-->
+        <attr name="isSupportChinese" format="boolean" />
+        <!--是否可编辑-->
+        <attr name="isEditEnable" format="boolean" />
+        <!--是否显示删除按钮-->
+        <attr name="isDelShow" format="boolean" />
+        <!--左侧图标是否显示-->
+        <attr name="is_icon_show" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="CustomIndicator">
+        <attr name="indicatorType" format="enum">
+            <enum name="scale" value="0" />
+            <enum name="gradual" value="1" />
+            <enum name="split" value="2" />
+            <enum name="scaleAndGradual" value="3" />
+        </attr>
+        <attr name="normalPointRadius" format="dimension" />
+        <attr name="selectedPointRadius" format="dimension" />
+        <attr name="normalPointColor" format="color" />
+        <attr name="selectedPointColor" format="color" />
+        <attr name="pointInterval" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="AudioSignalView">
+        <attr name="asv_groupCount" format="integer" />
+        <attr name="asv_groupInterval" format="dimension" />
+        <attr name="asv_lineColor" format="color" />
+        <attr name="asv_lineWidth" format="dimension" />
+        <attr name="asv_lineInterval" format="dimension" />
+        <attr name="asv_maxDynamicLineHeight" format="dimension" />
+        <attr name="asv_maxStaticLineHeight" format="dimension" />
+        <attr name="asv_minStaticLineHeight" format="dimension"/>
+        <attr name="asv_lineCountInGroup" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="AndroidTagView">
+        <attr name="vertical_interval" format="dimension" />
+        <attr name="horizontal_interval" format="dimension" />
+
+        <attr name="container_border_width" format="dimension" />
+        <attr name="container_border_radius" format="dimension" />
+        <attr name="container_border_color" format="color" />
+        <attr name="container_background_color" format="color" />
+        <attr name="container_enable_drag" format="boolean" />
+        <attr name="container_drag_sensitivity" format="float" />
+        <attr name="container_max_lines" format="integer" />
+        <attr name="container_gravity" format="enum">
+            <enum name="left" value="3" />
+            <enum name="center" value="17" />
+            <enum name="right" value="5" />
+        </attr>
+
+        <attr name="tag_border_width" format="dimension" />
+        <attr name="tag_corner_radius" format="dimension" />
+        <attr name="tag_horizontal_padding" format="dimension" />
+        <attr name="tag_vertical_padding" format="dimension" />
+        <attr name="tag_text_size" format="dimension" />
+        <attr name="tag_bd_distance" format="dimension" />
+        <attr name="tag_text_color" format="color" />
+        <attr name="tag_border_color" format="color" />
+        <attr name="tag_background_color" format="color" />
+        <attr name="tag_max_length" format="integer" />
+        <attr name="tag_clickable" format="boolean" />
+        <attr name="tag_selectable" format="boolean" />
+        <attr name="tag_theme" format="enum">
+            <enum name="none" value="-1" />
+            <enum name="random" value="0" />
+            <enum name="pure_cyan" value="1" />
+            <enum name="pure_teal" value="2" />
+        </attr>
+        <attr name="tag_text_direction" format="enum" >
+            <enum name="ltr" value="3" />
+            <enum name="rtl" value="4" />
+        </attr>
+        <attr name="tag_ripple_color" format="color" />
+        <attr name="tag_ripple_alpha" format="integer" />
+        <attr name="tag_ripple_duration" format="integer" />
+
+        <attr name="tag_enable_cross" format="boolean" />
+        <attr name="tag_cross_width" format="dimension" />
+        <attr name="tag_cross_color" format="color" />
+        <attr name="tag_cross_line_width" format="dimension" />
+        <attr name="tag_cross_area_padding" format="dimension" />
+        <attr name="tag_support_letters_rlt" format="boolean" />
+        <attr name="tag_background" format="reference" />
+    </declare-styleable>
+
+
+</resources>

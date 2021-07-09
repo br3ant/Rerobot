@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#488BFE</color>
+    <color name="colorPrimaryDark">#0F4AFF</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhite_ff">#FFFFFFFF</color>
+    <color name="color4E48BC">#4E48BC</color>
+
+    <!-- 控件按下时显示的颜色 -->
+    <color name="list_backgroud_color">#2fb3cb</color>
+    <color name="title_color">#0f8ec5</color>
+    <color name="content_color">#737373</color>
+    <color name="aiview_color">#f7f7f7</color>
+    <color name="aiview_color_right">#7bb1e7</color>
+    <color name="aiview_color_left">#93e77a</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white80">#ccffffff</color>
+    <color name="colorLightWhite">#F1F1F1</color>
+    <color name="XYShadowColor">#80000000</color>
+    <color name="lineChartXYColor">#085c8f</color>
+    <color name="white60">#99ffffff</color>
+    <color name="lineColor">#fad961</color>
+    <color name="colorLightWhite80">#ccf1f1f1</color>
+    <color name="valueTextColor">#01c2fc</color>
+
+    <color name="pass_view_rect_input">#3DA3FF</color>
+    <color name="regi_line_color">#c8c8c8</color>
+    <color name="color_common_black">#000000</color>
+    <color name="color_common_gray">#c6c6c6</color>
+
+    <color name="color_323446">#323446</color>
+    <color name="color_b69b4f">#b69b4f</color>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="SmartDB" />
+    <version value="6" />
+    <list>
+        <mapping class="com.eai.smart.bean.user.User" />
+        <mapping class="com.eai.smart.bean.debug.ErrorLog" />
+    </list>
+</litepal>

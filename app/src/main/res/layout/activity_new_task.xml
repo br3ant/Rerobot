@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_margin="5dp"
+            android:background="@drawable/bg_setting_framlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/target"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:textColor="#707070"
+                    android:id="@+id/dataHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:overScrollMode="never"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:id="@+id/sourceList"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/bg_actions_framlayout"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:overScrollMode="never"
+                android:scrollbarSize="4dp"
+                android:scrollbarThumbVertical="@drawable/style_scrollbar"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <com.bayi.rerobot.utilView.tagView.TagContainerLayout
+                    app:container_border_width="1dp"
+                    app:container_background_color="#00000000"
+                    app:container_border_color="#ceb7b7b7"
+                    android:id="@+id/tagContainerLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:padding="10dp"
+                    app:tag_enable_cross="false"
+                    app:container_enable_drag="true"
+                    app:horizontal_interval="10dp"
+                    app:vertical_interval="10dp"
+                    app:tag_clickable="true"
+                    app:tag_selectable="true"
+                    app:tag_theme="pure_teal" />
+
+            </ScrollView>
+
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal"
+                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/dontSaveActions"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:background="@drawable/btn_selector_dont_save"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                  >
+
+                    <ImageView
+                        android:src="@drawable/icon_dont_save"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:contentDescription="并不保存" />
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:textColor="#484848"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:padding="0dp"
+                        android:gravity="center"
+                        android:text="关闭"
+                        android:layout_width="wrap_content"
+                        android:layout_height="26dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/saveActions"
+                    android:clickable="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/btn_selector_save_setting"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp">
+
+                    <ImageView
+                        android:src="@drawable/icon_save_settings"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:contentDescription="保存任务" />
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:textColor="#484848"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:padding="0dp"
+                        android:gravity="center"
+                        android:text="设置区域"
+                        android:layout_width="wrap_content"
+                        android:layout_height="26dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

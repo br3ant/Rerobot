@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/screen1">
+
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+
+        />
+
+    <com.bayi.rerobot.utilView.PassWordLayout
+        android:id="@+id/pa3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:layout_centerInParent="true"
+        android:layout_marginTop="44px"
+        app:box_draw_type="line"
+        app:draw_txt_size="30dp"
+        app:interval_width="10dp"
+        app:pass_inputed_type="circle"
+        app:pass_leng="four"
+        android:visibility="gone"/>
+
+
+
+
+</RelativeLayout>
