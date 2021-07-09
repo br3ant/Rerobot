@@ -701,7 +701,7 @@ public class aiService extends Service  {
                 SerialData data = new Gson().fromJson(s, SerialData.class);
                 if (data != null && data.getParam1().getKeyword().equals("xiao3 fei1 xiao3 fei1")) {
                     Log.i(TAG, "监测到串口唤醒指令 angle = " + data.getParam1().getAngle());
-                    ToastUtil.showToast(aiService.this, "监测到串口唤醒指令 =" + data.getParam1().getAngle());
+//                    ToastUtil.showToast(aiService.this, "监测到串口唤醒指令 =" + data.getParam1().getAngle());
                     serialWeak(Integer.parseInt(data.getParam1().getAngle()));
                 }
 
