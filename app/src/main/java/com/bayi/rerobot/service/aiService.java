@@ -726,7 +726,7 @@ public class aiService extends Service  {
         }
         //阵列唤醒事件回调，唤醒后需要发命令CMD_WAKEUP，通知AIUI 进入到Working 状态；
         AIUIMessage resetWakeupMsg = new AIUIMessage(
-                AIUIConstant.CMD_WAKEUP, 0, 0, "", null);
+                AIUIConstant.CMD_RESET_WAKEUP, 0, 0, "", null);
         mAIUIAgent.sendMessage(resetWakeupMsg);
 
 
