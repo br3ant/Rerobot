@@ -444,9 +444,6 @@ public class aiService extends Service  {
                 case AIUIConstant.EVENT_WAKEUP:
                     //唤醒事件
                     Log.i(TAG, "on event: " + event.eventType);
-                    if(!isAsring){
-                        return;
-                    }
                     showTip("进入识别状态");
                     speak("我在");
                     if (mKwapi != null) {
@@ -617,9 +614,7 @@ public class aiService extends Service  {
                     } else if (AIUIConstant.STATE_READY == mAIUIState) {
                         // AIUI已就绪，等待唤醒
                         showTip("STATE_READY");
-                        AIUIMessage resetWakeupMsg = new AIUIMessage(
-                                AIUIConstant.CMD_WAKEUP, 0, 0, "", null);
-                        mAIUIAgent.sendMessage(resetWakeupMsg);
+
                     } else if (AIUIConstant.STATE_WORKING == mAIUIState) {
                         // AIUI工作中，可进行交互
                         showTip("STATE_WORKING");
@@ -732,7 +727,7 @@ public class aiService extends Service  {
         }
         //阵列唤醒事件回调，唤醒后需要发命令CMD_WAKEUP，通知AIUI 进入到Working 状态；
         AIUIMessage resetWakeupMsg = new AIUIMessage(
-                AIUIConstant.CMD_RESET_WAKEUP, 0, 0, "", null);
+                AIUIConstant.CMD_WAKEUP, 0, 0, "", null);
         mAIUIAgent.sendMessage(resetWakeupMsg);
 
 
