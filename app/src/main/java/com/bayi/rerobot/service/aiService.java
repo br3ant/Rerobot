@@ -37,6 +37,8 @@ import com.bayi.rerobot.gen.SetAreaBeanDao;
 import com.bayi.rerobot.greendao.SetAreaBean;
 import com.bayi.rerobot.greendao.Task;
 import com.bayi.rerobot.greendao.anySaveLog;
+import com.bayi.rerobot.serial.SerialData;
+import com.bayi.rerobot.serial.SerialManager;
 import com.bayi.rerobot.tobot.BaseConstant;
 import com.bayi.rerobot.tobot.ConnectSuccessEvent;
 import com.bayi.rerobot.tobot.MapHelper;
@@ -49,7 +51,6 @@ import com.bayi.rerobot.util.HttpUtil;
 
 import com.bayi.rerobot.util.LogUtil;
 import com.bayi.rerobot.util.ScreenTimer;
-import com.bayi.rerobot.util.SerialOperator;
 import com.bayi.rerobot.util.SocketClient;
 import com.bayi.rerobot.util.SocketHead;
 import com.bayi.rerobot.util.SocketType;
@@ -60,6 +61,7 @@ import com.eaibot.konyun.eaibotdemo.JniEAIBot;
 import com.genius.audio.track.MyPcmPlayer;
 
 
+import com.google.gson.Gson;
 import com.iflytek.aiui.AIUIAgent;
 import com.iflytek.aiui.AIUIConstant;
 import com.iflytek.aiui.AIUIEvent;
@@ -97,20 +99,20 @@ import java.util.Map;
 import java.util.Random;
 
 
-import android_serialport_api.SerialPortFinder;
 import cn.kuwo.autosdk.api.KWAPI;
 import cn.kuwo.autosdk.api.OnSearchListener;
 import cn.kuwo.autosdk.api.PlayState;
 import cn.kuwo.autosdk.api.SearchStatus;
 import cn.kuwo.base.bean.Music;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import tp.xmaihh.serialport.SerialHelper;
-import tp.xmaihh.serialport.bean.ComBean;
+
 
 
 import static androidx.core.app.NotificationCompat.PRIORITY_MAX;
@@ -342,8 +344,7 @@ public class aiService extends Service  {
         }
     };
 
-    private SerialPortFinder serialPortFinder;
-    private SerialHelper serialHelper;
+
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
@@ -369,24 +370,7 @@ public class aiService extends Service  {
         myLocationBean=dataSave.getDataList(Contants.LISTBEAN,LocationBean.class);
         //changmap();
 
-        serialPortFinder = new SerialPortFinder();
-        serialHelper = new SerialHelper("dev/ttyS4", 115200) {
-            @Override
-            protected void onDataReceived(final ComBean comBean) {
-                SerialOperator.SerialData data = SerialOperator.INSTANCE.handlerData(comBean.bRec, comBean.bRec.length);
-                if (data != null && data.getParam1().getKeyword().equals("xiao3 fei1 xiao3 fei1")) {
-                    ToastUtil.showToast(aiService.this, "监听到串口唤醒 angle = "+data.getParam1().getAngle());
-                    serialWeak(Integer.parseInt(data.getParam1().getAngle()));
-                }
-            }
-        };
-        try {
-            serialHelper.open();
-            ToastUtil.showToast(this, "串口打开成功");
-        } catch (IOException e) {
-            e.printStackTrace();
-            ToastUtil.showToast(this, "串口打开失败");
-        }
+        initSerialOperator();
     }
 
     @SuppressLint("WrongConstant")
@@ -708,6 +692,24 @@ public class aiService extends Service  {
 
         }
     };
+
+    private void initSerialOperator() {
+
+        boolean result = SerialManager.INSTANCE.getOperator().openSerialPort("", 115200, new Function1<String, Unit>() {
+            @Override
+            public Unit invoke(String s) {
+                SerialData data = new Gson().fromJson(s,SerialData.class);
+                if(data.getParam1().getKeyword().equals("xiao3 fei1 xiao3 fei1")){
+                    Log.i(TAG,"监测到串口唤醒指令 angle = "+data.getParam1().getAngle());
+                    ToastUtil.showToast(aiService.this,"监测到串口唤醒指令 ="+data.getParam1().getAngle());
+                    serialWeak(Integer.parseInt(data.getParam1().getAngle()));
+                }
+
+                return null;
+            }
+        });
+        Log.i(TAG,"串口打开 = "+result);
+    }
 
     private void serialWeak(int angle){
         Log.e("mAIUIAgent", mAIUIAgent == null ? "no" : "yes");
@@ -1138,7 +1140,7 @@ public class aiService extends Service  {
             myLocationBean=null;
         }
 
-        serialHelper.close();
+        SerialManager.INSTANCE.getOperator().closeSerialPort();
 
 
     }
