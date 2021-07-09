@@ -695,20 +695,20 @@ public class aiService extends Service  {
 
     private void initSerialOperator() {
 
-        boolean result = SerialManager.INSTANCE.getOperator().openSerialPort("", 115200, new Function1<String, Unit>() {
+        boolean result = SerialManager.INSTANCE.getOperator().openSerialPort("dev/ttyS4", 115200, new Function1<String, Unit>() {
             @Override
             public Unit invoke(String s) {
-                SerialData data = new Gson().fromJson(s,SerialData.class);
-                if(data.getParam1().getKeyword().equals("xiao3 fei1 xiao3 fei1")){
-                    Log.i(TAG,"监测到串口唤醒指令 angle = "+data.getParam1().getAngle());
-                    ToastUtil.showToast(aiService.this,"监测到串口唤醒指令 ="+data.getParam1().getAngle());
+                SerialData data = new Gson().fromJson(s, SerialData.class);
+                if (data != null && data.getParam1().getKeyword().equals("xiao3 fei1 xiao3 fei1")) {
+                    Log.i(TAG, "监测到串口唤醒指令 angle = " + data.getParam1().getAngle());
+                    ToastUtil.showToast(aiService.this, "监测到串口唤醒指令 =" + data.getParam1().getAngle());
                     serialWeak(Integer.parseInt(data.getParam1().getAngle()));
                 }
 
                 return null;
             }
         });
-        Log.i(TAG,"串口打开 = "+result);
+        Log.i(TAG, "串口打开 = " + result);
     }
 
     private void serialWeak(int angle){
