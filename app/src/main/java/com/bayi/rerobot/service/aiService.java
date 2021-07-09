@@ -374,8 +374,8 @@ public class aiService extends Service  {
         myLocationBean=dataSave.getDataList(Contants.LISTBEAN,LocationBean.class);
         //changmap();
 
-        mAudioRecorder = new AudioRecorder();
-        mAudioRecorder.setRecordStreamListener(new RecordAudioListener());
+//        mAudioRecorder = new AudioRecorder();
+//        mAudioRecorder.setRecordStreamListener(new RecordAudioListener());
 
         initSerialOperator();
     }
@@ -402,12 +402,12 @@ public class aiService extends Service  {
             }
         }, 100);
         init();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                initCaeEngine();
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                initCaeEngine();
+//            }
+//        }).start();
 
        // initCaeEngine();
         //initKwApi();
@@ -619,6 +619,9 @@ public class aiService extends Service  {
                             ToastUtil.showToast(aiService.this, "AIUI开始工作");
                             aiuiWork.run();
                             aiuiWork = null;
+
+                            //开始录音
+                            startRecord();
                         }
                     }
                 }
@@ -734,19 +737,6 @@ public class aiService extends Service  {
 
         aiuiWork = () -> {
             speak1("我在");
-
-            //开始录音
-            if (!mAudioRecorder.isRecording()) {
-                mAudioRecorder.createDefaultAudio();
-                mAudioRecorder.startRecord();
-
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAudioRecorder.stopRecord();
-                    }
-                }, 5000);
-            }
         };
 
         Log.e(TAG, "角度：" + angle + "   波束：" );
@@ -768,6 +758,12 @@ public class aiService extends Service  {
                 // CAE.CAESetRealBeam(beam);
             }
         }
+    }
+
+    private void startRecord() {
+        //开始录音
+        AIUIMessage msg = new AIUIMessage(AIUIConstant.CMD_START_RECORD, 0, 0, "data_type=audio,sample_rate=16000", null);
+        mAIUIAgent.sendMessage(msg);
     }
 
     private void speak(String str) {
