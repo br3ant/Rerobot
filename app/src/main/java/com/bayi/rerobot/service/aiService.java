@@ -444,6 +444,9 @@ public class aiService extends Service  {
                 case AIUIConstant.EVENT_WAKEUP:
                     //唤醒事件
                     Log.i(TAG, "on event: " + event.eventType);
+                    if(!isAsring){
+                        return;
+                    }
                     showTip("进入识别状态");
                     speak("我在");
                     if (mKwapi != null) {
