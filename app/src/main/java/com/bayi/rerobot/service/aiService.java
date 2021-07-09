@@ -614,6 +614,9 @@ public class aiService extends Service  {
                     } else if (AIUIConstant.STATE_READY == mAIUIState) {
                         // AIUI已就绪，等待唤醒
                         showTip("STATE_READY");
+                        AIUIMessage resetWakeupMsg = new AIUIMessage(
+                                AIUIConstant.CMD_WAKEUP, 0, 0, "", null);
+                        mAIUIAgent.sendMessage(resetWakeupMsg);
                     } else if (AIUIConstant.STATE_WORKING == mAIUIState) {
                         // AIUI工作中，可进行交互
                         showTip("STATE_WORKING");
@@ -728,6 +731,7 @@ public class aiService extends Service  {
         AIUIMessage resetWakeupMsg = new AIUIMessage(
                 AIUIConstant.CMD_RESET_WAKEUP, 0, 0, "", null);
         mAIUIAgent.sendMessage(resetWakeupMsg);
+
 
 
         Log.e(TAG, "角度：" + angle + "   波束：" );
