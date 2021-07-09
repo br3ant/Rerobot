@@ -245,7 +245,6 @@ public class aiService extends Service  {
         }
     };
 
-    private Runnable aiuiWork = null;
 
     int count;
     public Handler handler = new Handler() {
@@ -446,7 +445,7 @@ public class aiService extends Service  {
                     //唤醒事件
                     Log.i(TAG, "on event: " + event.eventType);
                     showTip("进入识别状态");
-                    speak("你好!");
+                    speak("我在");
                     if (mKwapi != null) {
                         mKwapi.setPlayState(PlayState.STATE_PAUSE);
                     }
@@ -455,6 +454,9 @@ public class aiService extends Service  {
                     EventBus.getDefault().post(new socketEventbus().setType(SocketHead.activity));
                     ScreenTimer.eliminateEvent();
                     EventBus.getDefault().post(new goFragment().setI(1));
+
+                    //开始录音
+                    startRecord();
                     break;
 
                 case AIUIConstant.EVENT_RESULT: {
@@ -615,14 +617,6 @@ public class aiService extends Service  {
                     } else if (AIUIConstant.STATE_WORKING == mAIUIState) {
                         // AIUI工作中，可进行交互
                         showTip("STATE_WORKING");
-                        if (aiuiWork != null) {
-                            ToastUtil.showToast(aiService.this, "AIUI开始工作");
-                            aiuiWork.run();
-                            aiuiWork = null;
-
-                            //开始录音
-                            startRecord();
-                        }
                     }
                 }
                 break;
@@ -735,9 +729,6 @@ public class aiService extends Service  {
                 AIUIConstant.CMD_WAKEUP, 0, 0, "", null);
         mAIUIAgent.sendMessage(resetWakeupMsg);
 
-        aiuiWork = () -> {
-            speak1("我在");
-        };
 
         Log.e(TAG, "角度：" + angle + "   波束：" );
         //60是偏差
