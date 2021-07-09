@@ -45,6 +45,7 @@ import com.bayi.rerobot.tobot.MapHelper;
 import com.bayi.rerobot.tobot.Status;
 import com.bayi.rerobot.tobot.locationEvent;
 import com.bayi.rerobot.ui.NewMain;
+import com.bayi.rerobot.util.AudioRecorder;
 import com.bayi.rerobot.util.Command;
 import com.bayi.rerobot.util.Contants;
 import com.bayi.rerobot.util.HttpUtil;
@@ -95,6 +96,7 @@ import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
@@ -160,6 +162,8 @@ public class aiService extends Service  {
     private HttpUtil httpUtil=new HttpUtil();
     public  List<LocationBean>myLocationBean;
     private AIUIAgent mAIUIAgent = null;
+
+    private AudioRecorder mAudioRecorder;
     //
     // 多麦克算法库
     private CaeOperator caeOperator;
@@ -369,6 +373,9 @@ public class aiService extends Service  {
         dataSave=new ListDataSave(aiService.this,"myLocationBean");
         myLocationBean=dataSave.getDataList(Contants.LISTBEAN,LocationBean.class);
         //changmap();
+
+        mAudioRecorder = new AudioRecorder();
+        mAudioRecorder.setRecordStreamListener(new RecordAudioListener());
 
         initSerialOperator();
     }
@@ -702,7 +709,7 @@ public class aiService extends Service  {
                 if (data != null && data.getParam1().getKeyword().equals("xiao3 fei1 xiao3 fei1")) {
                     Log.i(TAG, "监测到串口唤醒指令 angle = " + data.getParam1().getAngle());
 //                    ToastUtil.showToast(aiService.this, "监测到串口唤醒指令 =" + data.getParam1().getAngle());
-                    serialWeak(Integer.parseInt(data.getParam1().getAngle()));
+                    serialWeak((int)Float.parseFloat(data.getParam1().getAngle()));
                 }
 
                 return null;
@@ -729,8 +736,17 @@ public class aiService extends Service  {
             speak1("我在");
 
             //开始录音
-            AIUIMessage msg = new AIUIMessage(AIUIConstant.CMD_START_RECORD, 0, 0, "data_type=audio,sample_rate=16000", null);
-            mAIUIAgent.sendMessage(msg);
+            if (!mAudioRecorder.isRecording()) {
+                mAudioRecorder.createDefaultAudio();
+                mAudioRecorder.startRecord();
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAudioRecorder.stopRecord();
+                    }
+                }, 5000);
+            }
         };
 
         Log.e(TAG, "角度：" + angle + "   波束：" );
@@ -1742,6 +1758,47 @@ public class aiService extends Service  {
 
         }
 
+    }
+
+    private class RecordAudioListener implements AudioRecorder.RecordStreamListener {
+
+        @Override
+        public void onStart() {
+            Log.i(TAG,"onStart");
+        }
+
+        @Override
+        public void onRecording(final long duration) {
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    int second = (int) (duration / 1000);
+//                    int minute = second / 60;
+//                    second = second - minute * 60;
+//                    String time = String.format(Locale.getDefault(), "%02d", minute) + ":"
+//                            + String.format(Locale.getDefault(), "%02d", second);
+//                    mPopupWindowProvider.showRecordPopupWindow(time);
+//                }
+//            });
+        }
+
+        @Override
+        public void onFinish(final long duration, byte[] pcmData) {
+
+            if (isAsring && mAIUIState == AIUIConstant.STATE_WORKING) {
+                Log.e(TAG, mAIUIState + "送入音频事件");
+                String params = "data_type=audio,sample_rate=16000";
+                AIUIMessage msg = new AIUIMessage(AIUIConstant.CMD_WRITE, 0, 0, params, pcmData);
+                mAIUIAgent.sendMessage(msg);
+            } else {
+                Log.e(TAG, "未送入音频： mAIUIState =" + mAIUIState + "  isAsring： " + isAsring);
+            }
+        }
+
+        @Override
+        public void onError(String error) {
+            Log.e(TAG,"onError "+ error);
+        }
     }
 }
 
