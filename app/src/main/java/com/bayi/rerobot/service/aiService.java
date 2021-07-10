@@ -820,7 +820,7 @@ public class aiService extends Service  {
 
         AssetManager assetManager = getResources().getAssets();
         try {
-            InputStream ins = assetManager.open("cfg/aiui_phone_continuous.cfg");
+            InputStream ins = assetManager.open("cfg/aiui_phone.cfg");
             byte[] buffer = new byte[ins.available()];
 
             ins.read(buffer);
